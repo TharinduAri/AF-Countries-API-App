@@ -24,7 +24,9 @@ const UserProfile = () => {
         const response = await fetch("https://af-countries-api-app-production.up.railway.app/api/users/me", {
           method: "GET",
           headers: {
-            Authorization: `Bearer ${token}`,
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json",
+
           },
         });
 

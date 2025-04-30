@@ -15,8 +15,8 @@ app.use(express.json());
 // CORS Configuration
 const allowedOrigins = [
   'https://af-countries-api-app.vercel.app/',
-  'https://af-countries-api-app.vercel.app'
-  // 'http://localhost:5173'
+  'https://af-countries-api-app.vercel.app',
+  'http://localhost:5173'
 ];
 
 const corsOptions = {
