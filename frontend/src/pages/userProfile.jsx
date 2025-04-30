@@ -21,7 +21,7 @@ const UserProfile = () => {
           throw new Error("No authentication token found");
         }
 
-        const response = await fetch("http://localhost:5000/api/users/me", {
+        const response = await fetch("https://af-countries-api-app-production.up.railway.app/api/users/me", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
