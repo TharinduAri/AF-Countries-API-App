@@ -5,6 +5,7 @@ export const authService = {
     try {
       const response = await fetch(`${API_URL}register`, {
         method: 'POST',
+        mode: 'no-cors',
         headers: {
           'Content-Type': 'application/json',
         },
