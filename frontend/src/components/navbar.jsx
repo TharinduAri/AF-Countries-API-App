@@ -1,3 +1,4 @@
+import React from "react";
 import {
   Navbar as HeroUINavbar,
   NavbarBrand,
@@ -6,18 +7,17 @@ import {
   NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
-} from "@heroui/navbar";
-import { Link } from "@heroui/link";
-import { Button } from "@heroui/button";
-import { ThemeSwitch } from "@/components/theme-switch";
-import { useEffect, useState } from "react";
+  Link,
+  Button
+} from "@heroui/react";
+import { ThemeSwitch } from "./theme-switch";
 import { useNavigate } from "react-router-dom";
 
 export const Navbar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
+  React.useEffect(() => {
     // Check if user is logged in by looking for token in localStorage
     const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
@@ -46,7 +46,6 @@ export const Navbar = () => {
       </NavbarContent>
 
       {/* Navigation items on the right for desktop */}
-      
       <NavbarContent className="hidden sm:flex basis-1/5 sm:basis-full" justify="end">
         {isLoggedIn && (
           <NavbarItem>
@@ -106,19 +105,17 @@ export const Navbar = () => {
           {isLoggedIn ? (
             // Show logout button if logged in
             <>
-            <NavbarMenuItem>
-              <Link color="danger" href="#" size="lg" onClick={handleLogout}>
-                Logout
-              </Link>
-            </NavbarMenuItem>
-            <NavbarMenuItem>
+              <NavbarMenuItem>
+                <Link color="danger" href="#" size="lg" onClick={handleLogout}>
+                  Logout
+                </Link>
+              </NavbarMenuItem>
+              <NavbarMenuItem>
                 <Link color="foreground" href="/profile" size="lg">
                   Profile
                 </Link>
               </NavbarMenuItem>
-
             </>
-            
           ) : (
             // Show login and register if not logged in
             <>

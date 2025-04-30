@@ -4,23 +4,15 @@ import { Avatar } from "@heroui/avatar";
 import { Button } from "@heroui/button";
 import { Divider } from "@heroui/divider";
 import { Spinner } from "@heroui/spinner";
-import DefaultLayout from "@/layouts/default";
+import DefaultLayout from "../layouts/default";
 
-interface User {
-  _id: string;
-  name: string;
-  email: string;
-  createdAt?: string;
-  updatedAt?: string;
-}
-
-const UserProfile: React.FC = () => {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+const UserProfile = () => {
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchUserProfile = async (): Promise<void> => {
+    const fetchUserProfile = async () => {
       try {
         setLoading(true);
         const token = localStorage.getItem("token");
@@ -40,7 +32,7 @@ const UserProfile: React.FC = () => {
           throw new Error("Failed to fetch user profile");
         }
 
-        const userData: User = await response.json();
+        const userData = await response.json();
         setUser(userData);
       } catch (err) {
         setError(err instanceof Error ? err.message : "An unknown error occurred");
@@ -53,7 +45,7 @@ const UserProfile: React.FC = () => {
   }, []);
 
   // Generate initials for avatar
-  const getInitials = (name: string): string => {
+  const getInitials = (name) => {
     return name
       .split(" ")
       .map((part) => part[0])
