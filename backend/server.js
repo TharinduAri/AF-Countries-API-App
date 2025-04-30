@@ -25,10 +25,12 @@ const allowedOrigins = [
 const corsOptions = {
   origin: function (origin, callback) {
     if (allowedOrigins.includes(origin) || !origin) {
-      callback(null, origin); // Return the origin here, not `true`
+      callback(null, true);
     } else {
       console.log(`Origin ${origin} not allowed by CORS`);
-      callback(new Error('Not allowed by CORS'));
+      callback(null, true); // Allow all origins in development
+      // In production, you might want to use:
+      // callback(new Error('Not allowed by CORS'));
     }
   },
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
@@ -37,12 +39,11 @@ const corsOptions = {
   optionsSuccessStatus: 200
 };
 
-
 // Apply CORS before routes
-app.use(cors(corsOptions));
+app.use(cors());
 
 // Enable pre-flight requests for all routes
-app.options('*', cors(corsOptions));
+// app.options('*', cors(corsOptions));
 
 // Routes
 app.use('/api/users', userRoutes);
