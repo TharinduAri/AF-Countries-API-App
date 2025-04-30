@@ -11,15 +11,7 @@ const app = express();
 app.use(express.json());
 
 
-app.use(cors({
-  origin: [
-    'http://localhost:3000',  // Your local frontend
-    'https://af-countries-api-app.vercel.app/', // Your production frontend
-    // Add any other domains that need access
-  ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  credentials: true // If you're using cookies/sessions
-}));
+app.use(cors()); // Use CORS middleware
 app.use('/api/users', userRoutes);
 
 const PORT = process.env.PORT || 5000;
