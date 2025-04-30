@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:5000/api/users/';
+const API_URL = 'af-countries-api-app-production.up.railway.app/api/users/';
 
 export const authService = {
   register: async (username: string, email: string, password: string): Promise<any> => {
