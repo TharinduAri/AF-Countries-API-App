@@ -1,8 +1,8 @@
-// const API_URL = 'https://af-countries-api-app-production.up.railway.app/api/users/';
+const API_URL = 'https://af-countries-api-app-production.up.railway.app/api/users/';
 
 export const authService = {
   register: async (username, email, password) => {
-    const response = await fetch('https://af-countries-api-app-production.up.railway.app/api/users/register', {
+    const response = await fetch(`${API_URL}register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -13,7 +13,7 @@ export const authService = {
   },
 
   login: async (email, password) => {
-    const response = await fetch('https://af-countries-api-app-production.up.railway.app/api/users/login', {
+    const response = await fetch(`${API_URL}login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
