@@ -4,7 +4,6 @@ import { Link } from "@heroui/link";
 import { Input } from "@heroui/input";
 import { button as buttonStyles } from "@heroui/theme";
 
-import { siteConfig } from "@/config/site";
 import { title, subtitle } from "@/components/primitives";
 import DefaultLayout from "@/layouts/default";
 import { authService } from "../services/authService";
