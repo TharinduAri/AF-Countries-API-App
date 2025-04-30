@@ -12,7 +12,22 @@ app.use(express.json());
 
 
 app.use(cors()); // Use CORS middleware
+
+
+app.get('/health', (req, res) => {
+  res.status(200).json({
+    status: 'ok',
+    message: 'Server is running',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime()
+  });
+});
+
+
+
 app.use('/api/users', userRoutes);
+
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
