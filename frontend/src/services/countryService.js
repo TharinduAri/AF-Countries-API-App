@@ -1,29 +1,12 @@
-// src/services/countryService.ts
-
-export interface Country {
-  name: {
-    common: string;
-    official: string;
-  };
-  flags: {
-    png: string;
-    svg: string;
-    alt?: string;
-  };
-  capital: string[];
-  region: string;
-  population: number;
-  cca3: string;
-  languages: { [key: string]: string };
-}
+// src/services/countryService.js
 
 const BASE_URL = "https://restcountries.com/v3.1";
 
-export async function fetchAllCountries(): Promise<Country[]> {
+export async function fetchAllCountries() {
   try {
     const response = await fetch(`${BASE_URL}/all`);
     if (!response.ok) throw new Error("Failed to fetch countries");
-    const data: Country[] = await response.json();
+    const data = await response.json();
     return data;
   } catch (error) {
     console.error("Error fetching countries:", error);
@@ -31,11 +14,11 @@ export async function fetchAllCountries(): Promise<Country[]> {
   }
 }
 
-export async function fetchCountryByName(name: string): Promise<Country[]> {
+export async function fetchCountryByName(name) {
   try {
     const response = await fetch(`${BASE_URL}/name/${name}`);
     if (!response.ok) throw new Error("Failed to fetch country by name");
-    const data: Country[] = await response.json();
+    const data = await response.json();
     return data;
   } catch (error) {
     console.error("Error fetching country by name:", error);
@@ -43,11 +26,11 @@ export async function fetchCountryByName(name: string): Promise<Country[]> {
   }
 }
 
-export async function fetchCountriesByRegion(region: string): Promise<Country[]> {
+export async function fetchCountriesByRegion(region) {
   try {
     const response = await fetch(`${BASE_URL}/region/${region}`);
     if (!response.ok) throw new Error("Failed to fetch countries by region");
-    const data: Country[] = await response.json();
+    const data = await response.json();
     return data;
   } catch (error) {
     console.error("Error fetching countries by region:", error);
@@ -55,11 +38,11 @@ export async function fetchCountriesByRegion(region: string): Promise<Country[]>
   }
 }
 
-export async function fetchCountryByCode(code: string): Promise<Country> {
+export async function fetchCountryByCode(code) {
   try {
     const response = await fetch(`${BASE_URL}/alpha/${code}`);
     if (!response.ok) throw new Error("Failed to fetch country by code");
-    const data: Country[] = await response.json();
+    const data = await response.json();
     return data[0]; // API returns an array with a single country
   } catch (error) {
     console.error("Error fetching country by code:", error);
@@ -67,6 +50,6 @@ export async function fetchCountryByCode(code: string): Promise<Country> {
   }
 }
 
-export function formatPopulation(population: number): string {
+export function formatPopulation(population) {
   return population.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
