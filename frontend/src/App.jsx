@@ -13,7 +13,7 @@ function App() {
       <Route element={<RegisterPage />} path="/register" />
       <Route element={<UserProfile />} path="/profile" />
       <Route element={<HomePage />} path="/home" />
-      <Route element={<CountryPage />} path="/country" />
+      <Route element={<CountryPage />} path="/country/:id" />
 
 
     </Routes>

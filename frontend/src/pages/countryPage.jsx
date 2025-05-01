@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { title, subtitle } from "../components/premitives";
 import DefaultLayout from "../layouts/default";
 import { fetchCountryByCode, formatPopulation } from "../services/countryService";
+import {Button, ButtonGroup} from "@heroui/button";
 
 export default function CountryPage() {
   const { id } = useParams();
@@ -60,14 +61,13 @@ export default function CountryPage() {
   return (
     <DefaultLayout>
       <div className="container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <button 
+      <button 
             onClick={() => window.history.back()}
             className="mb-4 px-4 py-2 bg-primary text-white rounded-md"
           >
             ← Back to Countries
           </button>
-          
+        <div className="mb-8">
           <h1 className={title()}>{country.name.common}</h1>
           <p className={subtitle()}>{country.name.official}</p>
         </div>

@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, } from "react";
+import { useNavigate } from 'react-router-dom';
 import { Input } from "@heroui/input";
 import { button as buttonStyles } from "@heroui/theme";
 import {Card, CardHeader, CardBody, CardFooter, Divider, Link, Image} from "@heroui/react";
@@ -13,6 +14,7 @@ export default function HomePage() {
   const [selectedRegion, setSelectedRegion] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const regions = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
 
@@ -69,6 +71,13 @@ export default function HomePage() {
   const handleRegionChange = (e) => {
     setSelectedRegion(e.target.value);
   };
+
+  //handleTravelClick
+  const handleTravelClick = (country) => {
+    navigate(`/country/${country.cca3}`);
+  }
+
+
 
   return (
     <DefaultLayout>
@@ -148,6 +157,7 @@ export default function HomePage() {
                   </p>
                 </div>
                 <button
+                   onClick={()=>handleTravelClick(country)}
                   className={`${buttonStyles({
                     color: "secondary",
                     variant: "shadow",
