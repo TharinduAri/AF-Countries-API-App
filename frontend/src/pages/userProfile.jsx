@@ -5,6 +5,8 @@ import { Button } from "@heroui/button";
 import { Divider } from "@heroui/divider";
 import { Spinner } from "@heroui/spinner";
 import DefaultLayout from "../layouts/default";
+import { authService } from "../services/authService";
+
 
 const UserProfile = () => {
   const [user, setUser] = useState(null);
@@ -12,6 +14,8 @@ const UserProfile = () => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+
+    
     const fetchUserProfile = async () => {
       try {
         setLoading(true);
@@ -21,20 +25,12 @@ const UserProfile = () => {
           throw new Error("No authentication token found");
         }
 
-        const response = await fetch("https://af-countries-api-app-production.up.railway.app/api/users/me", {
-          method: "GET",
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json",
-
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch user profile");
+        const userData = await authService.getMe(token);
+        
+        if (userData.success === false) {
+          throw new Error(userData.message || "Failed to fetch user profile");
         }
-
-        const userData = await response.json();
+        
         setUser(userData);
       } catch (err) {
         setError(err instanceof Error ? err.message : "An unknown error occurred");
