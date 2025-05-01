@@ -11,7 +11,7 @@ const app = express();
 
 // Configure CORS
 app.use(cors({
-  origin: 'https://af-countries-api-app.vercel.app/', // Your frontend application's origin
+  origin: 'https://af-countries-api-app.vercel.app', // Your frontend application's origin
   credentials: true, // Allow credentials (cookies)
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
