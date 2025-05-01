@@ -2,17 +2,22 @@ import express from 'express';
 import dotenv from 'dotenv';
 import connectDB from './config/db.js';
 import userRoutes from './routes/userRoutes.js';
-import cors from 'cors'; // Import CORS
+import cors from 'cors';
 
 dotenv.config();
 connectDB();
 
 const app = express();
+
+// Configure CORS
+app.use(cors({
+  origin: 'http://localhost:5173', // Your frontend application's origin
+  credentials: true, // Allow credentials (cookies)
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
 app.use(express.json());
-
-
-app.use(cors()); // Use CORS middleware
-
 
 app.get('/health', (req, res) => {
   res.status(200).json({
@@ -23,11 +28,7 @@ app.get('/health', (req, res) => {
   });
 });
 
-
-
 app.use('/api/users', userRoutes);
-
-
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
