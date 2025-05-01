@@ -17,12 +17,17 @@ export async function fetchAllCountries() {
 export async function fetchCountryByName(name) {
   try {
     const response = await fetch(`${BASE_URL}/name/${name}`);
-    if (!response.ok) throw new Error("Failed to fetch country by name");
+    if (!response.ok) {
+      if (response.status === 404) {
+        throw new Error(`No countries found matching "${name}"`);
+      }
+      throw new Error("Failed to fetch country by name");
+    }
     const data = await response.json();
     return data;
   } catch (error) {
     console.error("Error fetching country by name:", error);
-    throw new Error("Country not found. Please check the name and try again.");
+    throw error; // Pass the error up to be handled by the component
   }
 }
 
