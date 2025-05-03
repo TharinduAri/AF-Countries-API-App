@@ -106,7 +106,7 @@ export const Navbar = () => {
             // Show logout button if logged in
             <>
               <NavbarMenuItem>
-                <Link color="danger" href="#" size="lg" onClick={handleLogout}>
+                <Link color="danger" href="/" size="lg" onClick={handleLogout}>
                   Logout
                 </Link>
               </NavbarMenuItem>

@@ -1,8 +1,9 @@
+import React from 'react';
 import { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Input } from "@heroui/input";
 import { button as buttonStyles } from "@heroui/theme";
-import { Card, CardHeader, CardBody, CardFooter, Divider, Link, Image } from "@heroui/react";
+import { Card, CardHeader, CardBody, CardFooter, Divider, Link, Image, Pagination } from "@heroui/react";
 import { title, subtitle } from "../components/premitives";
 import DefaultLayout from "../layouts/default";
 import { 
@@ -20,6 +21,10 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const navigate = useNavigate();
+
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(1);
+  const [countriesPerPage] = useState(9);
 
   const regions = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
 
@@ -61,6 +66,8 @@ export default function HomePage() {
 
         // Always update the countries state with the data we received
         setCountries(data);
+        // Reset to first page whenever the data changes
+        setCurrentPage(1);
       } catch (error) {
         console.error('❌ API Error:', error);
         setError(error instanceof Error ? error.message : "An unknown error occurred");
@@ -78,6 +85,19 @@ export default function HomePage() {
 
     return () => clearTimeout(debounceTimeout);
   }, [searchTerm, selectedRegion]);
+
+  // Get current countries for pagination
+  const indexOfLastCountry = currentPage * countriesPerPage;
+  const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;
+  const currentCountries = countries.slice(indexOfFirstCountry, indexOfLastCountry);
+  const totalPages = Math.ceil(countries.length / countriesPerPage);
+
+  // Handle page change
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+    // Scroll to top when changing pages
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   // Get card size based on population
   const getCardSize = (population) => {
@@ -157,7 +177,7 @@ export default function HomePage() {
 
         {!loading && !error && (
           <div className="max-w-6xl gap-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-min">
-            {countries.map((country) => (
+            {currentCountries.map((country) => (
               <div
                 key={country.cca3}
                 className={`${getCardSize(country.population)} group bg-white dark:bg-gray-800 rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all relative`}
@@ -200,6 +220,22 @@ export default function HomePage() {
                 </div>
               </div>
             ))}
+          </div>
+        )}
+
+        {!loading && !error && countries.length > 0 && (
+          <div className="w-full flex justify-center mt-8">
+            <Pagination 
+              initialPage={currentPage} 
+              total={totalPages} 
+              onChange={handlePageChange}
+              showControls
+              classNames={{
+                wrapper: "gap-2",
+                item: "transition-all",
+                cursor: "bg-primary text-white"
+              }}
+            />
           </div>
         )}
 
