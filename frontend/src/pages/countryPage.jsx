@@ -1,9 +1,11 @@
+import React from 'react';
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { title, subtitle } from "../components/premitives";
 import DefaultLayout from "../layouts/default";
 import { fetchCountryByCode, formatPopulation } from "../services/countryService";
-import {Button, ButtonGroup} from "@heroui/button";
+import { Button, ButtonGroup } from "@heroui/button";
+import GeminiChat from "../components/GeminiChat"; // Import the GeminiChat component
 
 export default function CountryPage() {
   const { id } = useParams();
@@ -61,12 +63,12 @@ export default function CountryPage() {
   return (
     <DefaultLayout>
       <div className="container mx-auto px-4 py-8">
-      <button 
-            onClick={() => window.history.back()}
-            className="mb-4 px-4 py-2 bg-primary text-white rounded-md"
-          >
-            ← Back to Countries
-          </button>
+        <button 
+          onClick={() => window.history.back()}
+          className="mb-4 px-4 py-2 bg-primary text-white rounded-md"
+        >
+          ← Back to Countries
+        </button>
         <div className="mb-8">
           <h1 className={title()}>{country.name.common}</h1>
           <p className={subtitle()}>{country.name.official}</p>
@@ -94,7 +96,6 @@ export default function CountryPage() {
               <div>
                 <span className="font-semibold">Population:</span> {formatPopulation(country.population)}
               </div>
-
               <div>
                 <span className="font-semibold">Languages:</span> {country.languages ? Object.values(country.languages).join(", ") : "N/A"}
               </div>
@@ -102,7 +103,8 @@ export default function CountryPage() {
           </div>
         </div>
 
-        {/* Additional sections can be added here */}
+        {/* Gemini Chat Component */}
+        <GeminiChat country={country} />
       </div>
     </DefaultLayout>
   );
